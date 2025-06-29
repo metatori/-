@@ -1,52 +1,236 @@
-
 <!DOCTYPE html>
 <html lang="ko">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mensing - 쿠팡 특가 모음</title>
-    <link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>MetaToRI World</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@700&display=swap');
+    body {
+      margin: 0; padding: 0;
+      font-family: 'Orbitron', sans-serif;
+      background: linear-gradient(180deg, #060c1f 0%, #311a56 100%);
+      color: #fff;
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+    .container {
+      padding: 40px 20px 20px 20px;
+      text-align: center;
+      position: relative;
+      z-index: 2;
+    }
+    h1.title {
+      font-size: 4.3em;
+      font-weight: 900;
+      letter-spacing: 3px;
+      background: linear-gradient(92deg, #fdff8e, #b56fff 14%, #54e9ff 37%, #ff8ac7 60%, #fff5e3 75%, #b56fff 100%);
+      background-size: 200% 200%;
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      text-fill-color: transparent;
+      text-shadow:
+        0 0 22px #ff8ac7, 
+        0 0 44px #b56fffbb, 
+        0 0 62px #54e9ff99;
+      margin-bottom: 0.2em;
+      margin-top: 0.15em;
+      animation: prismGradient 5s linear infinite alternate;
+    }
+    @keyframes prismGradient {
+      0% { background-position: 0% 50%;}
+      100% { background-position: 100% 50%;}
+    }
+    h2.slogan {
+      font-size: 2.5em;
+      color: #40f6ff;
+      text-shadow: 0 0 18px #40f6ff, 0 0 18px #fff7, 0 0 22px #b56fff99;
+      letter-spacing: 2px;
+      margin-bottom: 0.55em;
+      font-weight: 700;
+    }
+    p.subtitle {
+      margin-top: 8px;
+      font-size: 1.13em;
+      color: #ccc;
+    }
+    .card {
+      background: rgba(14, 9, 32, 0.66);
+      border: 2px solid #a37cff;
+      border-radius: 22px;
+      padding: 40px 24px;
+      margin-top: 38px;
+      max-width: 650px;
+      margin-left: auto;
+      margin-right: auto;
+      box-shadow: 0 0 20px #a37cff77, 0 0 80px #40f6ff22;
+      position: relative;
+      z-index: 2;
+      transition: box-shadow 0.35s, filter 0.2s;
+      overflow: hidden;
+    }
+    .card:hover {
+      box-shadow: 0 0 70px #ff8ac7bb, 0 0 180px #40f6ffcc;
+      filter: brightness(1.08) saturate(1.18);
+    }
+    .highlight { color: #ff7ce5; font-weight: bold;}
+    .blue { color: #40f6ff; font-weight: bold;}
+    .purple { color: #b56fff; font-weight: bold;}
+    .btn {
+      display: inline-block;
+      margin-top: 30px;
+      padding: 15px 38px;
+      border-radius: 32px;
+      background: linear-gradient(90deg, #00ffd0, #b56fff 60%, #ff8ac7 100%);
+      color: #14143a;
+      font-weight: bold;
+      font-size: 1.2em;
+      letter-spacing: 1.5px;
+      text-decoration: none;
+      box-shadow: 0 0 12px #b56fff77, 0 0 20px #40f6ff77;
+      transition: transform 0.3s, box-shadow 0.2s;
+      border: none;
+      cursor: pointer;
+      text-shadow: 0 0 6px #fff;
+    }
+    .btn:hover {
+      transform: scale(1.07);
+      box-shadow: 0 0 44px #ff8ac799, 0 0 44px #40f6ffbb;
+      filter: brightness(1.1);
+    }
+    .stars, .balloons {
+      position: fixed;
+      width: 100vw;
+      height: 100vh;
+      left: 0; top: 0;
+      pointer-events: none;
+      z-index: 1;
+    }
+    .stars span, .balloons span {
+      position: absolute;
+      border-radius: 50%;
+      opacity: 0;
+      pointer-events: none;
+      user-select: none;
+    }
+    .stars span {
+      background: white;
+      width: 2px; height: 2px;
+      animation: twinkle 2.8s infinite linear;
+    }
+    @keyframes twinkle {
+      0%,100% { opacity: 0.1;}
+      20% { opacity: 0.8;}
+      70% { opacity: 1;}
+      85% { opacity: 0.4;}
+    }
+    .balloons span {
+      width: 22px; height: 30px;
+      background: radial-gradient(circle at 60% 30%, #fff7, transparent 60%);
+      opacity: 0.7;
+      animation: floatUp 8s linear infinite;
+      filter: blur(0.5px);
+      box-shadow: 0 0 8px #b56fff99, 0 0 18px #40f6ff66;
+    }
+    @keyframes floatUp {
+      0% {
+        transform: translateY(100vh) scale(0.7) rotate(0deg);
+        opacity: 0.02;
+      }
+      10% { opacity: 0.5;}
+      50% {
+        opacity: 1;
+        filter: blur(0.2px) brightness(1.2);
+      }
+      90% {
+        opacity: 0.8;
+        filter: blur(1.3px);
+      }
+      100% {
+        transform: translateY(-80px) scale(1.25) rotate(15deg);
+        opacity: 0;
+      }
+    }
+    @media screen and (max-width: 768px) {
+      .card { padding: 30px 10px; }
+      h1.title { font-size: 2.3em; }
+      h2.slogan { font-size: 1.2em; }
+    }
+    @media screen and (max-width: 420px) {
+      .card { padding: 20px 2vw;}
+      h1.title { font-size: 1.4em; }
+      h2.slogan { font-size: 1em; }
+    }
+  </style>
 </head>
 <body>
-    <header>
-        <h1>Mensings</h1>
-        <p>쿠팡 실시간 특가 모음</p>
-        <input type="text" placeholder="지금 특가 상품 검색하기">
-    </header>
-
-    <section class="banner yellow">🎯 오늘만 특가! 타임딜 확인하세요</section>
-    <section class="banner orange">🔥 오늘의 베스트 할인 상품</section>
-
-    <main class="product-list">
-        <div class="product-card">
-            <img src="https://via.placeholder.com/80" alt="샤오미 무선청소기">
-            <div>
-                <h3>샤오미 무선청소기</h3>
-                <p><span class="discount">50%</span> 할인</p>
-            </div>
-        </div>
-        <div class="product-card">
-            <img src="https://via.placeholder.com/80" alt="삼성 갤럭시버즈">
-            <div>
-                <h3>삼성 갤럭시버즈</h3>
-                <p><span class="discount">30%</span> 할인</p>
-            </div>
-        </div>
-        <div class="product-card">
-            <img src="https://via.placeholder.com/80" alt="나이키 샌들">
-            <div>
-                <h3>나이키 샌들</h3>
-                <p><span class="discount">20%</span> 할인</p>
-            </div>
-        </div>
-    </main>
-
-    <footer>
-        <nav>
-            <a href="#">홈</a>
-            <a href="#">검색</a>
-            <a href="#">마이</a>
-        </nav>
-    </footer>
+  <div class="stars"></div>
+  <div class="balloons"></div>
+  <div class="container">
+    <h1 class="title">MetaToRI World</h1>
+    <h2 class="slogan">Dream Never Fade</h2>
+    <p class="subtitle">우리의 꿈은 누군가의 희망이 됩니다.</p>
+    <div class="card">
+      <h2><span class="blue">🌙 MetaToRI 오픈 시즌</span></h2>
+      <p>
+        이 길의 시작은, 한 사람의 <span class="highlight">작은 꿈</span>에서 비롯되었습니다.<br>
+        그 꿈에 <span class="blue">공감</span>하고,<br>
+        처음부터 함께해 준 <span class="purple">홀더분들</span>이 있었기에<br>
+        지금의 <span class="purple">MetaToRI 월드</span>가 존재할 수 있었습니다.
+      </p>
+      <p>
+        처음 내디뎠던 <span class="blue">그 한 걸음</span>이,<br>
+        이제는 <span class="highlight">누군가의 마음</span>을 안아주는<br>
+        작은 세계로 자라났습니다.
+      </p>
+      <p>
+        이번 오픈 시즌은<br>
+        그 모든 시작을 함께해 준 <span class="purple">홀더분들</span>을 위한<br>
+        <span class="blue">조용한 인사</span>이자, <span class="highlight">깊은 감사의 마음</span>입니다.
+      </p>
+      <p>
+        이건 단순한 보상이 아니라,<br>
+        처음 만난 그 <span class="highlight">따뜻한 응원</span>을 기억하려는 <span class="blue">약속</span>입니다.<br>
+        그리고 앞으로도 함께 걸어가고 싶다는 <span class="highlight">다짐</span>입니다.
+      </p>
+      <p>
+        <span class="highlight">꿈</span>은 <span class="blue">잊혀지지 않으니까요.</span><br>
+        그 마음을 다시 담아,<br>
+        지금, 또 하나의 <span class="highlight">첫걸음</span>을 내딛습니다.
+      </p>
+      <p>
+        <span class="blue">고맙습니다.</span><br>
+        그리고 다시, <span class="purple">메타토리와 함께합니다.</span>
+      </p>
+      <a href="https://forms.gle/fHeriaaNBBj8oHes9" class="btn">지금 신청하기</a>
+    </div>
+  </div>
+  <script>
+    // 별똥별
+    const stars = document.querySelector('.stars');
+    for (let i = 0; i < 60; i++) {
+      const star = document.createElement('span');
+      star.style.left = `${Math.random() * 100}%`;
+      star.style.top = `${Math.random() * 100}%`;
+      star.style.animationDelay = `${Math.random() * 3}s`;
+      star.style.opacity = Math.random() * 0.9 + 0.1;
+      stars.appendChild(star);
+    }
+    // 풍선 효과
+    const balloons = document.querySelector('.balloons');
+    for (let i = 0; i < 23; i++) {
+      const balloon = document.createElement('span');
+      const size = 18 + Math.random() * 28;
+      balloon.style.left = `${Math.random() * 100}%`;
+      balloon.style.width = `${size}px`;
+      balloon.style.height = `${size * (1.3 + Math.random()*0.3)}px`;
+      balloon.style.animationDuration = `${6.5 + Math.random() * 5}s`;
+      balloon.style.animationDelay = `${Math.random() * 6}s`;
+      const h = Math.floor(Math.random()*360);
+      balloon.style.background = `radial-gradient(circle at 60% 30%, #fff9, transparent 60%), hsl(${h},90%,80%)`;
+      balloons.appendChild(balloon);
+    }
+  </script>
 </body>
 </html>
